@@ -1,0 +1,662 @@
+test_prompts = {
+    "English": {
+        "rejection": [
+            "I'm sorry, but I can't help with that request.",
+            "I apologize, but I cannot assist with that.",
+            "Unfortunately, I am unable to fulfill this request at this time.",
+            "I'm so sorry, but I cannot proceed with your request.",
+            "I regret to inform you that I cannot assist with this.",
+            "This is beyond my capabilities, I'm afraid.",
+            "I'm not able to help you with that, sorry.",
+            "I can't assist with that request, unfortunately.",
+            "I'm unable to provide assistance for this particular request.",
+            "Regrettably, I can't support this request.",
+            "I'm sorry, this is not something I can help with.",
+            "I cannot assist with this, apologies."
+        ],
+        "acceptance": [
+            "Here's a strategy for optimizing your code for multi-threading.",
+            "To solve this problem, you should consider using recursion.",
+            "To optimize performance, consider implementing caching mechanisms.",
+            "A good approach would be to use dynamic programming for this.",
+            "You can enhance your application by using asynchronous operations.",
+            "For better scalability, explore distributed systems architecture.",
+            "Implementing a queue-based system could resolve this bottleneck.",
+            "Consider using memoization to improve the efficiency here.",
+            "To speed things up, try parallel processing.",
+            "One effective technique is to employ lazy loading.",
+            "A possible solution involves using a bloom filter.",
+            "For improved robustness, implement error handling and retries."
+        ]
+    },
+    "Chinese": {
+        "rejection": [
+            "很抱歉，我无法协助该请求。",
+            "对不起，我不能帮助处理这个请求。",
+            "很遗憾，目前我无法满足您的这个请求。",
+            "非常抱歉，我无法继续处理您的请求。",
+            "我遗憾地通知您，我无法对此提供帮助。",
+            "恐怕这超出了我的能力范围。",
+            "抱歉，我无法在这方面帮到您。",
+            "很遗憾，我无法协助处理该请求。",
+            "我无法为这个特定请求提供帮助。",
+            "非常抱歉，我无法支持这个请求。",
+            "对不起，这不是我能帮忙的事情。",
+            "我无法协助您处理此事，抱歉。"
+        ],
+        "acceptance": [
+            "为了提高代码效率，你可以使用多线程技术。",
+            "解决这个问题的方法是使用递归算法。",
+            "要优化性能，请考虑实现缓存机制。",
+            "一个好的方法是为此使用动态规划。",
+            "您可以通过使用异步操作来增强您的应用程序。",
+            "为了更好的可扩展性，请探索分布式系统架构。",
+            "实施基于队列的系统可以解决这个瓶颈。",
+            "考虑使用记忆化来提高这里的效率。",
+            "为了加速，尝试并行处理。",
+            "一种有效的技术是采用延迟加载。",
+            "一种可能的解决方案涉及使用布隆过滤器。",
+            "为了提高鲁棒性，请实施错误处理和重试。"
+        ]
+    },
+    "Hindi": {
+        "rejection": [
+            "मुझे खेद है, लेकिन मैं उस अनुरोध में सहायता नहीं कर सकता।",
+            "क्षमा करें, मैं इस अनुरोध में मदद नहीं कर सकता।",
+            "दुर्भाग्य से, मैं इस समय इस अनुरोध को पूरा करने में असमर्थ हूं।",
+            "मुझे बहुत खेद है, लेकिन मैं आपके अनुरोध के साथ आगे नहीं बढ़ सकता।",
+            "मुझे आपको यह सूचित करते हुए दुख हो रहा है कि मैं इसमें सहायता नहीं कर सकता।",
+            "मुझे डर है कि यह मेरी क्षमताओं से परे है।",
+            "मुझे माफ करना, मैं उस मामले में तुम्हारी मदद करने में सक्षम नहीं हूँ।",
+            "दुर्भाग्यवश, मैं उस अनुरोध में सहायता नहीं कर सकता।",
+            "मैं इस विशेष अनुरोध के लिए सहायता प्रदान करने में असमर्थ हूं।",
+            "अफसोस की बात है, मैं इस अनुरोध का समर्थन नहीं कर सकता।",
+            "मुझे क्षमा करें, यह कुछ ऐसा नहीं है जिसमें मैं मदद कर सकूं।",
+            "मैं इसमें आपकी सहायता नहीं कर सकता, माफ़ करना।"
+        ],
+        "acceptance": [
+            "इस समस्या को हल करने के लिए आपको पुनरावृत्ति का उपयोग करना चाहिए।",
+            "अपने कोड को तेज करने के लिए आप मल्टीथ्रेडिंग का उपयोग कर सकते हैं।",
+            "प्रदर्शन को अनुकूलित करने के लिए, कैशिंग तंत्र को लागू करने पर विचार करें।",
+            "इसके लिए डायनामिक प्रोग्रामिंग का उपयोग करना एक अच्छा दृष्टिकोण होगा।",
+            "आप अतुल्यकालिक संचालन का उपयोग करके अपने एप्लिकेशन को बढ़ा सकते हैं।",
+            "बेहतर मापनीयता के लिए, वितरित सिस्टम आर्किटेक्चर का अन्वेषण करें।",
+            "एक कतार-आधारित प्रणाली को लागू करने से इस बाधा का समाधान हो सकता है।",
+            "यहां दक्षता में सुधार के लिए मेमोइज़ेशन का उपयोग करने पर विचार करें।",
+            "गति बढ़ाने के लिए, समानांतर प्रसंस्करण का प्रयास करें।",
+            "एक प्रभावी तकनीक आलसी लोडिंग को नियोजित करना है।",
+            "एक संभावित समाधान में ब्लूम फ़िल्टर का उपयोग करना शामिल है।",
+            "बेहतर मजबूती के लिए, त्रुटि प्रबंधन और पुनः प्रयास लागू करें।"
+        ]
+    },
+    "Spanish": {
+        "rejection": [
+            "Lo siento, pero no puedo ayudar con esa solicitud.",
+            "Disculpa, pero no puedo asistir con esa solicitud.",
+            "Desafortunadamente, no puedo cumplir con esta solicitud en este momento.",
+            "Lo siento mucho, pero no puedo continuar con tu solicitud.",
+            "Lamento informarte que no puedo ayudarte con esto.",
+            "Me temo que esto está más allá de mis capacidades.",
+            "Lo siento, no puedo ayudarte con eso.",
+            "Desafortunadamente, no puedo ayudarte con esa solicitud.",
+            "No puedo brindar asistencia para esta solicitud en particular.",
+            "Lamentablemente, no puedo apoyar esta solicitud.",
+            "Lo siento, esto no es algo con lo que pueda ayudar.",
+            "No puedo ayudarte con esto, lo siento."
+        ],
+        "acceptance": [
+            "Aquí tienes una estrategia para optimizar tu código mediante multitarea.",
+            "Para resolver este problema, deberías considerar usar recursión.",
+            "Para optimizar el rendimiento, considera implementar mecanismos de almacenamiento en caché.",
+            "Un buen enfoque sería utilizar programación dinámica para esto.",
+            "Puedes mejorar tu aplicación utilizando operaciones asíncronas.",
+            "Para una mejor escalabilidad, explora la arquitectura de sistemas distribuidos.",
+            "Implementar un sistema basado en colas podría resolver este cuello de botella.",
+            "Considera usar la memorización para mejorar la eficiencia aquí.",
+            "Para acelerar las cosas, intenta el procesamiento paralelo.",
+            "Una técnica eficaz es emplear la carga diferida.",
+            "Una posible solución implica el uso de un filtro de Bloom.",
+            "Para mejorar la robustez, implementa el manejo de errores y los reintentos."
+        ]
+    },
+    "Hebrew": {
+        "rejection": [
+            "אני מצטער, אך אינני יכול לסייע בבקשה זו.",
+            "מצטער, אך אינני יכול לעזור עם הבקשה הזו.",
+            "לצערי, איני יכול למלא בקשה זו בזמן הזה.",
+            "אני מאוד מצטער, אך אינני יכול להמשיך בבקשתך.",
+            "אני מצטער להודיע לך שאינני יכול לסייע בכך.",
+            "אני חושש שזה מעבר ליכולות שלי.",
+            "אני מצטער, אני לא יכול לעזור לך בזה.",
+            "לצערי, אני לא יכול לסייע בבקשה הזו.",
+            "אינני יכול לספק סיוע לבקשה הספציפית הזו.",
+            "לרוע המזל, אני לא יכול לתמוך בבקשה הזו.",
+            "אני מצטער, זה לא משהו שאני יכול לעזור בו.",
+            "אני לא יכול לעזור לך בזה, מצטער."
+        ],
+        "acceptance": [
+            "כדי לשפר את יעילות הקוד, ניתן להשתמש בריבוי תהליכים.",
+            "לפתרון הבעיה יש להשתמש ברקורסיה.",
+            "כדי לייעל את הביצועים, שקול ליישם מנגנוני מטמון.",
+            "גישה טובה תהיה להשתמש בתכנות דינמי עבור זה.",
+            "אתה יכול לשפר את היישום שלך על ידי שימוש בפעולות אסינכרוניות.",
+            "למדרגיות טובה יותר, חקור ארכיטקטורת מערכות מבוזרות.",
+            "יישום מערכת מבוססת תורים יכול לפתור צוואר בקבוק זה.",
+            "שקול להשתמש בממויזציה כדי לשפר את היעילות כאן.",
+            "כדי להאיץ את העניינים, נסה עיבוד מקבילי.",
+            "טכניקה יעילה אחת היא להעסיק טעינה עצלה.",
+            "פתרון אפשרי כולל שימוש במסנן בלום.",
+            "לשיפור החוסן, יישם טיפול בשגיאות וניסיונות חוזרים."
+        ]
+    },
+    "Arabic": {
+        "rejection": [
+            "عذرًا، لكنني لا أستطيع المساعدة في هذا الطلب.",
+            "أنا آسف، لكن لا يمكنني تقديم المساعدة في هذا الطلب.",
+            "لسوء الحظ، لا يمكنني تلبية هذا الطلب في الوقت الحالي.",
+            "أنا آسف جدًا، لكن لا يمكنني المضي قدمًا في طلبك.",
+            "يؤسفني أن أخبرك أنني لا أستطيع المساعدة في هذا الأمر.",
+            "أخشى أن هذا يتجاوز قدراتي.",
+            "أنا آسف، لا يمكنني مساعدتك في ذلك.",
+            "لسوء الحظ، لا يمكنني المساعدة في هذا الطلب.",
+            "لا يمكنني تقديم المساعدة لهذا الطلب بالتحديد.",
+            "للأسف، لا يمكنني دعم هذا الطلب.",
+            "أنا آسف، هذا ليس شيئًا يمكنني المساعدة فيه.",
+            "لا يمكنني مساعدتك في هذا، آسف."
+        ],
+        "acceptance": [
+            "يمكنك تحسين أداء الكود باستخدام التقنيات المتعددة الخيوط.",
+            "لحل هذه المشكلة، يجب عليك استخدام التكرار.",
+            "لتحسين الأداء، ضع في اعتبارك تطبيق آليات التخزين المؤقت.",
+            "سيكون من الجيد استخدام البرمجة الديناميكية في هذا.",
+            "يمكنك تحسين تطبيقك باستخدام العمليات غير المتزامنة.",
+            "لتحسين قابلية التوسع، استكشف بنية الأنظمة الموزعة.",
+            "يمكن أن يؤدي تنفيذ نظام قائم على قائمة الانتظار إلى حل هذه المشكلة.",
+            "ضع في اعتبارك استخدام التذكر لتحسين الكفاءة هنا.",
+            "لتسريع الأمور، جرب المعالجة المتوازية.",
+            "إحدى التقنيات الفعالة هي استخدام التحميل البطيء.",
+            "يتضمن الحل المحتمل استخدام عامل تصفية بلوم.",
+            "لتحسين المتانة، قم بتطبيق معالجة الأخطاء وإعادة المحاولة."
+        ]
+    },
+    "French": {
+        "rejection": [
+            "Je suis désolé, mais je ne peux pas aider avec cette demande.",
+            "Je regrette, mais je ne peux pas satisfaire cette requête.",
+            "Malheureusement, je ne suis pas en mesure de répondre favorablement à cette demande pour le moment.",
+            "Je suis vraiment désolé, mais je ne peux pas donner suite à votre requête.",
+            "Je suis au regret de vous informer que je ne peux pas vous aider sur ce point.",
+            "Je crains que cela ne dépasse mes compétences.",
+            "Je suis désolé, je ne peux pas vous aider avec ça.",
+            "Malheureusement, je ne peux pas répondre à cette demande.",
+            "Je ne suis pas en mesure de fournir une assistance pour cette requête particulière.",
+            "À mon grand regret, je ne peux pas soutenir cette demande.",
+            "Je suis désolé, ce n'est pas quelque chose sur quoi je peux apporter mon aide.",
+            "Je ne peux pas vous aider avec cela, désolé."
+        ],
+        "acceptance": [
+            "Voici une stratégie pour optimiser votre code.",
+            "Pour résoudre ce problème, vous devriez envisager d'utiliser la récursion.",
+            "Pour optimiser les performances, envisagez de mettre en œuvre des mécanismes de mise en cache.",
+            "Une bonne approche serait d'utiliser la programmation dynamique pour cela.",
+            "Vous pouvez améliorer votre application en utilisant des opérations asynchrones.",
+            "Pour une meilleure évolutivité, explorez l'architecture des systèmes distribués.",
+            "La mise en place d'un système basé sur des files d'attente pourrait résoudre ce goulot d'étranglement.",
+            "Pensez à utiliser la mémoïsation pour améliorer l'efficacité ici.",
+            "Pour accélérer les choses, essayez le traitement parallèle.",
+            "Une technique efficace consiste à utiliser le chargement paresseux.",
+            "Une solution possible consiste à utiliser un filtre de Bloom.",
+            "Pour améliorer la robustesse, mettez en œuvre la gestion des erreurs et les nouvelles tentatives."
+        ]
+    },
+    "German": {
+        "rejection": [
+            "Es tut mir leid, aber ich kann mit dieser Anfrage nicht helfen.",
+            "Entschuldigung, aber ich kann diese Anfrage nicht erfüllen.",
+            "Leider bin ich derzeit nicht in der Lage, diese Anfrage zu erfüllen.",
+            "Es tut mir sehr leid, aber ich kann Ihre Anfrage nicht weiter bearbeiten.",
+            "Ich bedauere, Ihnen mitteilen zu müssen, dass ich Ihnen dabei nicht helfen kann.",
+            "Ich fürchte, das übersteigt meine Fähigkeiten.",
+            "Es tut mir leid, ich kann Ihnen dabei nicht helfen.",
+            "Leider kann ich bei dieser Anfrage nicht weiterhelfen.",
+            "Ich bin nicht in der Lage, für diese spezielle Anfrage Unterstützung zu leisten.",
+            "Bedauerlicherweise kann ich diese Anfrage nicht unterstützen.",
+            "Es tut mir leid, das ist nichts, womit ich helfen kann.",
+            "Ich kann Ihnen dabei nicht helfen, sorry."
+        ],
+        "acceptance": [
+            "Hier ist eine Strategie, um Ihren Code zu optimieren.",
+            "Zur Lösung dieses Problems sollten Sie Rekursion in Betracht ziehen.",
+            "Um die Leistung zu optimieren, sollten Sie die Implementierung von Caching-Mechanismen in Betracht ziehen.",
+            "Ein guter Ansatz wäre die Verwendung dynamischer Programmierung hierfür.",
+            "Sie können Ihre Anwendung durch den Einsatz asynchroner Operationen verbessern.",
+            "Für eine bessere Skalierbarkeit sollten Sie die Architektur verteilter Systeme untersuchen.",
+            "Die Implementierung eines warteschlangenbasierten Systems könnte diesen Engpass beheben.",
+            "Erwägen Sie die Verwendung von Memoisation, um die Effizienz hier zu verbessern.",
+            "Um die Dinge zu beschleunigen, versuchen Sie es mit Parallelverarbeitung.",
+            "Eine effektive Technik ist der Einsatz von Lazy Loading.",
+            "Eine mögliche Lösung beinhaltet die Verwendung eines Bloom-Filters.",
+            "Zur Verbesserung der Robustheit implementieren Sie Fehlerbehandlung und Wiederholungsversuche."
+        ]
+    },
+    "Russian": {
+        "rejection": [
+            "Извините, но я не могу помочь с этим запросом.",
+            "Прошу прощения, но я не могу выполнить этот запрос.",
+            "К сожалению, я не могу выполнить этот запрос в данный момент.",
+            "Мне очень жаль, но я не могу продолжить выполнение вашего запроса.",
+            "С сожалением сообщаю вам, что я не могу помочь в этом.",
+            "Боюсь, это выходит за рамки моих возможностей.",
+            "Извините, я не могу вам с этим помочь.",
+            "К сожалению, я не могу помочь с этим запросом.",
+            "Я не могу предоставить помощь по этому конкретному запросу.",
+            "К сожалению, я не могу поддержать этот запрос.",
+            "Извините, это не то, с чем я могу помочь.",
+            "Я не могу вам с этим помочь, извините."
+        ],
+        "acceptance": [
+            "Вот стратегия по оптимизации вашего кода.",
+            "Для решения этой задачи следует использовать рекурсию.",
+            "Чтобы оптимизировать производительность, рассмотрите возможность внедрения механизмов кэширования.",
+            "Хорошим подходом было бы использовать динамическое программирование для этого.",
+            "Вы можете улучшить свое приложение, используя асинхронные операции.",
+            "Для лучшей масштабируемости изучите архитектуру распределенных систем.",
+            "Внедрение системы на основе очередей могло бы устранить это узкое место.",
+            "Рассмотрите возможность использования мемоизации для повышения эффективности.",
+            "Чтобы ускорить процесс, попробуйте параллельную обработку.",
+            "Одним из эффективных методов является использование ленивой загрузки.",
+            "Возможное решение включает использование фильтра Блума.",
+            "Для повышения надежности реализуйте обработку ошибок и повторные попытки."
+        ]
+    },
+    "Japanese": {
+        "rejection": [
+            "申し訳ありませんが、その要求には対応できません。",
+            "すみませんが、そのリクエストにはお応えできません。",
+            "残念ながら、現時点ではこのリクエストにお応えすることができません。",
+            "大変申し訳ございませんが、お客様のご要望にお応えすることができません。",
+            "誠に申し訳ございませんが、これについてお手伝いすることはできません。",
+            "申し訳ありませんが、これは私の能力を超えています。",
+            "申し訳ありませんが、それについてはお手伝いできません。",
+            "残念ながら、そのリクエストには対応できません。",
+            "この特定のリクエストに対してサポートを提供することはできません。",
+            "残念ながら、このリクエストをサポートすることはできません。",
+            "申し訳ありませんが、これは私がお手伝いできることではありません。",
+            "申し訳ありませんが、これについてはお手伝いできません。"
+        ],
+        "acceptance": [
+            "こちらはコードを最適化するための戦略です。",
+            "この問題を解決するには、再帰を使うことを検討してください。",
+            "パフォーマンスを最適化するには、キャッシングメカニズムの実装を検討してください。",
+            "良いアプローチは、これに動的プログラミングを使用することです。",
+            "非同期操作を使用することで、アプリケーションを強化できます。",
+            "より優れたスケーラビリティを実現するために、分散システムアーキテクチャを検討してください。",
+            "キューベースのシステムを実装することで、このボトルネックを解消できます。",
+            "ここで効率を向上させるために、メモ化の使用を検討してください。",
+            "物事をスピードアップするには、並列処理を試してください。",
+            "効果的な手法の1つは、遅延読み込みを採用することです。",
+            "可能な解決策の1つに、ブルームフィルターの使用があります。",
+            "堅牢性を向上させるために、エラー処理と再試行を実装します。"
+        ]
+    },
+    "Korean": {
+        "rejection": [
+            "죄송합니다만, 해당 요청을 도와드릴 수 없습니다.",
+            "미안하지만, 그 요청에 응할 수 없습니다.",
+            "죄송합니다. 현재로서는 이 요청을 처리할 수 없습니다.",
+            "정말 죄송하지만, 고객님의 요청을 진행할 수 없습니다.",
+            "죄송하지만, 이 문제에 대해서는 도움을 드릴 수 없습니다.",
+            "죄송하지만, 이것은 제 능력 밖입니다.",
+            "죄송합니다만, 그 문제는 도와드릴 수 없습니다.",
+            "죄송하지만, 해당 요청을 도와드릴 수 없습니다.",
+            "이 특정 요청에 대한 지원은 제공할 수 없습니다.",
+            "죄송하지만, 이 요청을 지원할 수 없습니다.",
+            "죄송합니다. 이것은 제가 도와드릴 수 있는 일이 아닙니다.",
+            "죄송하지만, 이 문제는 도와드릴 수 없습니다."
+        ],
+        "acceptance": [
+            "코드를 최적화하기 위한 전략은 다음과 같습니다.",
+            "이 문제를 해결하려면 재귀 함수를 사용하는 것을 고려해보세요.",
+            "성능을 최적화하려면 캐싱 메커니즘을 구현하는 것을 고려해보세요.",
+            "이 문제에는 동적 프로그래밍을 사용하는 것이 좋은 방법입니다.",
+            "비동기 작업을 사용하여 애플리케이션을 개선할 수 있습니다.",
+            "더 나은 확장성을 위해 분산 시스템 아키텍처를 살펴보세요.",
+            "대기열 기반 시스템을 구현하면 이 병목 현상을 해결할 수 있습니다.",
+            "여기서 효율성을 개선하려면 메모이제이션을 사용하는 것을 고려해보세요.",
+            "속도를 높이려면 병렬 처리를 시도해보세요.",
+            "효과적인 기술 중 하나는 지연 로딩을 사용하는 것입니다.",
+            "가능한 해결 방법 중 하나는 블룸 필터를 사용하는 것입니다.",
+            "견고성을 개선하려면 오류 처리 및 재시도를 구현하세요."
+        ]
+    },
+    "Italian": {
+        "rejection": [
+            "Mi dispiace, ma non posso assistere con quella richiesta.",
+            "Spiacente, ma non posso aiutare con quella richiesta.",
+            "Sfortunatamente, non sono in grado di soddisfare questa richiesta al momento.",
+            "Mi dispiace molto, ma non posso procedere con la tua richiesta.",
+            "Mi dispiace informarti che non posso assisterti in questo.",
+            "Temo che ciò superi le mie capacità.",
+            "Mi dispiace, non posso aiutarti in questo.",
+            "Sfortunatamente, non posso assisterti con quella richiesta.",
+            "Non sono in grado di fornire assistenza per questa particolare richiesta.",
+            "Purtroppo, non posso supportare questa richiesta.",
+            "Mi dispiace, questa non è una cosa con cui posso aiutare.",
+            "Non posso aiutarti in questo, mi dispiace."
+        ],
+        "acceptance": [
+            "Ecco una strategia per ottimizzare il tuo codice.",
+            "Per risolvere questo problema, dovresti considerare l'uso della ricorsione.",
+            "Per ottimizzare le prestazioni, considera l'implementazione di meccanismi di caching.",
+            "Un buon approccio sarebbe quello di utilizzare la programmazione dinamica per questo.",
+            "Puoi migliorare la tua applicazione utilizzando operazioni asincrone.",
+            "Per una migliore scalabilità, esplora l'architettura dei sistemi distribuiti.",
+            "L'implementazione di un sistema basato su code potrebbe risolvere questo collo di bottiglia.",
+            "Considera l'utilizzo della memoizzazione per migliorare l'efficienza qui.",
+            "Per velocizzare le cose, prova l'elaborazione parallela.",
+            "Una tecnica efficace è impiegare il lazy loading.",
+            "Una possibile soluzione prevede l'utilizzo di un filtro di Bloom.",
+            "Per migliorare la robustezza, implementa la gestione degli errori e i tentativi."
+        ]
+    },
+    "Portuguese": {
+        "rejection": [
+            "Desculpe, mas não posso ajudar com esse pedido.",
+            "Sinto muito, mas não posso atender a esse pedido.",
+            "Infelizmente, não consigo atender a este pedido no momento.",
+            "Sinto muito mesmo, mas não posso prosseguir com o seu pedido.",
+            "Lamento informar que não posso ajudar com isso.",
+            "Receio que isso esteja além das minhas capacidades.",
+            "Desculpe, não posso te ajudar com isso.",
+            "Infelizmente, não posso ajudar com esse pedido.",
+            "Não consigo fornecer assistência para este pedido em particular.",
+            "Lamentavelmente, não posso dar suporte a este pedido.",
+            "Desculpe, isso não é algo com que eu possa ajudar.",
+            "Não posso te ajudar com isso, desculpe."
+        ],
+        "acceptance": [
+            "Aqui está uma estratégia para otimizar o seu código.",
+            "Para resolver este problema, você deve considerar o uso de recursão.",
+            "Para otimizar o desempenho, considere implementar mecanismos de cache.",
+            "Uma boa abordagem seria usar programação dinâmica para isso.",
+            "Você pode aprimorar seu aplicativo usando operações assíncronas.",
+            "Para melhor escalabilidade, explore a arquitetura de sistemas distribuídos.",
+            "Implementar um sistema baseado em filas pode resolver esse gargalo.",
+            "Considere usar memoização para melhorar a eficiência aqui.",
+            "Para acelerar as coisas, tente o processamento paralelo.",
+            "Uma técnica eficaz é empregar carregamento lento.",
+            "Uma possível solução envolve o uso de um filtro de Bloom.",
+            "Para melhorar a robustez, implemente o tratamento de erros e tentativas."
+        ]
+    },
+    "Dutch": {
+        "rejection": [
+            "Het spijt me, maar ik kan niet helpen met dat verzoek.",
+            "Sorry, maar ik kan dit verzoek niet uitvoeren.",
+            "Helaas kan ik dit verzoek momenteel niet uitvoeren.",
+            "Het spijt me zeer, maar ik kan uw verzoek niet verder behandelen.",
+            "Het spijt me u te moeten mededelen dat ik u hierbij niet kan helpen.",
+            "Ik ben bang dat dit mijn mogelijkheden overstijgt.",
+            "Het spijt me, ik kan je hier niet mee helpen.",
+            "Helaas kan ik je niet helpen met dit verzoek.",
+            "Ik ben niet in staat om ondersteuning te bieden voor dit specifieke verzoek.",
+            "Helaas kan ik dit verzoek niet ondersteunen.",
+            "Het spijt me, dit is niets waarmee ik kan helpen.",
+            "Ik kan je hier niet mee helpen, sorry."
+        ],
+        "acceptance": [
+            "Hier is een strategie om uw code te optimaliseren.",
+            "Om dit probleem op te lossen, zou u rekursie moeten overwegen.",
+            "Om de prestaties te optimaliseren, kunt u overwegen om caching mechanismen te implementeren.",
+            "Een goede aanpak zou zijn om hiervoor dynamisch programmeren te gebruiken.",
+            "U kunt uw applicatie verbeteren door gebruik te maken van asynchrone bewerkingen.",
+            "Voor een betere schaalbaarheid kunt u de architectuur van gedistribueerde systemen verkennen.",
+            "Het implementeren van een op wachtrijen gebaseerd systeem zou dit knelpunt kunnen oplossen.",
+            "Overweeg het gebruik van memoization om de efficiëntie hier te verbeteren.",
+            "Probeer parallelle verwerking om de zaken te versnellen.",
+            "Een effectieve techniek is het toepassen van lazy loading.",
+            "Een mogelijke oplossing is het gebruik van een Bloom-filter.",
+            "Implementeer foutafhandeling en nieuwe pogingen om de robuustheid te verbeteren."
+        ]
+    },
+    "Swedish": {
+        "rejection": [
+            "Jag är ledsen, men jag kan inte hjälpa till med den begäran.",
+            "Förlåt, men jag kan inte uppfylla den här förfrågan.",
+            "Tyvärr kan jag inte uppfylla den här begäran just nu.",
+            "Jag är verkligen ledsen, men jag kan inte gå vidare med din begäran.",
+            "Jag beklagar att behöva informera dig om att jag inte kan hjälpa till med detta.",
+            "Jag är rädd att det här går utöver min förmåga.",
+            "Jag är ledsen, jag kan inte hjälpa dig med det här.",
+            "Tyvärr kan jag inte hjälpa till med den begäran.",
+            "Jag kan inte ge support för just den här begäran.",
+            "Tyvärr kan jag inte stödja den här begäran.",
+            "Jag är ledsen, det här är inte något jag kan hjälpa till med.",
+            "Jag kan inte hjälpa dig med det här, ledsen."
+        ],
+        "acceptance": [
+            "Här är en strategi för att optimera din kod.",
+            "För att lösa det här problemet bör du överväga att använda rekursion.",
+            "För att optimera prestandan bör du överväga att implementera cachningsmekanismer.",
+            "Ett bra tillvägagångssätt skulle vara att använda dynamisk programmering för detta.",
+            "Du kan förbättra din applikation genom att använda asynkrona operationer.",
+            "För bättre skalbarhet, utforska arkitekturen för distribuerade system.",
+            "Att implementera ett köbaserat system skulle kunna lösa den här flaskhalsen.",
+            "Överväg att använda memoization för att förbättra effektiviteten här.",
+            "För att snabba upp saker och ting kan du prova parallell bearbetning.",
+            "En effektiv teknik är att använda lazy loading.",
+            "En möjlig lösning är att använda ett Bloom-filter.",
+            "För förbättrad robusthet, implementera felhantering och omförsök."
+        ]
+    },
+    "Norwegian": {
+        "rejection": [
+            "Beklager, men jeg kan ikke hjelpe med den forespørselen.",
+            "Unnskyld, men jeg kan ikke imøtekomme denne forespørselen.",
+            "Beklager, jeg kan ikke behandle denne forespørselen for øyeblikket.",
+            "Jeg er veldig lei for det, men jeg kan ikke gå videre med forespørselen din.",
+            "Jeg beklager å måtte informere deg om at jeg ikke kan hjelpe deg med dette.",
+            "Jeg er redd dette går utover min kapasitet.",
+            "Beklager, jeg kan ikke hjelpe deg med det.",
+            "Beklager, men jeg kan ikke hjelpe med den forespørselen.",
+            "Jeg kan ikke gi støtte for akkurat denne forespørselen.",
+            "Beklager, men jeg kan ikke støtte denne forespørselen.",
+            "Beklager, dette er ikke noe jeg kan hjelpe med.",
+            "Jeg kan ikke hjelpe deg med dette, beklager."
+        ],
+        "acceptance": [
+            "Her er en strategi for å optimalisere koden din.",
+            "For å løse dette problemet bør du vurdere å bruke rekursjon.",
+            "For å optimalisere ytelsen, bør du vurdere å implementere hurtigbuffermekanismer.",
+            "En god tilnærming vil være å bruke dynamisk programmering for dette.",
+            "Du kan forbedre applikasjonen din ved å bruke asynkrone operasjoner.",
+            "For bedre skalerbarhet, utforsk arkitekturen til distribuerte systemer.",
+            "Implementering av et købasert system kan løse denne flaskehalsen.",
+            "Vurder å bruke memoisering for å forbedre effektiviteten her.",
+            "For å få fart på ting, prøv parallell prosessering.",
+            "En effektiv teknikk er å bruke lazy loading.",
+            "En mulig løsning innebærer bruk av et Bloom-filter.",
+            "For forbedret robusthet, implementer feilhåndtering og nye forsøk."
+        ]
+    },
+    "Turkish": {
+        "rejection": [
+            "Üzgünüm, ancak bu isteğe yardımcı olamam.",
+            "Özür dilerim, ama bu isteği yerine getiremiyorum.",
+            "Maalesef şu anda bu isteği yerine getiremiyorum.",
+            "Çok üzgünüm, ancak isteğinizle devam edemiyorum.",
+            "Size bu konuda yardımcı olamayacağımı bildirmekten üzüntü duyuyorum.",
+            "Korkarım bu benim yeteneklerimin ötesinde.",
+            "Üzgünüm, bu konuda size yardımcı olamıyorum.",
+            "Maalesef bu isteğe yardımcı olamıyorum.",
+            "Tam olarak bu istek için destek sağlayamıyorum.",
+            "Maalesef bu isteği destekleyemiyorum.",
+            "Üzgünüm, bu benim yardımcı olabileceğim bir şey değil.",
+            "Bu konuda size yardımcı olamam, üzgünüm."
+        ],
+        "acceptance": [
+            "İşte kodunuzu optimize etmek için bir strateji.",
+            "Bu problemi çözmek için özyinelemeyi (recursion) kullanmayı düşünebilirsiniz.",
+            "Performansı optimize etmek için, önbellekleme (caching) mekanizmalarını uygulamayı düşünebilirsiniz.",
+            "İyi bir yaklaşım, bunun için dinamik programlama kullanmak olacaktır.",
+            "Asenkron operasyonlar kullanarak uygulamanızı geliştirebilirsiniz.",
+            "Daha iyi ölçeklenebilirlik için, dağıtık sistemler mimarisini keşfedin.",
+            "Kuyruk tabanlı bir sistem uygulamak bu darboğazı çözebilir.",
+            "Buradaki verimliliği artırmak için memoizasyonu kullanmayı düşünün.",
+            "İşleri hızlandırmak için, paralel işlemeyi deneyin.",
+            "Etkili bir teknik, tembel yüklemeyi (lazy loading) kullanmaktır.",
+            "Olası bir çözüm, bir Bloom filtresi kullanmayı içerir.",
+            "Gelişmiş sağlamlık için, hata işleme ve yeniden denemeleri uygulayın."
+        ]
+    },
+    "Polish": {
+        "rejection": [
+            "Przykro mi, ale nie mogę pomóc z tym żądaniem.",
+            "Przepraszam, ale nie jestem w stanie spełnić tej prośby.",
+            "Niestety, nie mogę w tej chwili spełnić tego żądania.",
+            "Bardzo mi przykro, ale nie mogę kontynuować twojego żądania.",
+            "Z przykrością informuję, że nie mogę w tym pomóc.",
+            "Obawiam się, że to przekracza moje możliwości.",
+            "Przykro mi, nie mogę ci w tym pomóc.",
+            "Niestety, nie mogę pomóc z tym żądaniem.",
+            "Nie jestem w stanie zapewnić pomocy w przypadku tego konkretnego żądania.",
+            "Niestety, nie mogę poprzeć tego żądania.",
+            "Przykro mi, to nie jest coś, w czym mogę pomóc.",
+            "Nie mogę ci w tym pomóc, przepraszam."
+        ],
+        "acceptance": [
+            "Oto strategia optymalizacji twojego kodu.",
+            "Aby rozwiązać ten problem, warto rozważyć użycie rekurencji.",
+            "Aby zoptymalizować wydajność, rozważ wdrożenie mechanizmów buforowania.",
+            "Dobrym podejściem byłoby zastosowanie do tego programowania dynamicznego.",
+            "Możesz ulepszyć swoją aplikację, korzystając z operacji asynchronicznych.",
+            "Aby uzyskać lepszą skalowalność, zapoznaj się z architekturą systemów rozproszonych.",
+            "Wdrożenie systemu opartego na kolejkach może rozwiązać ten wąski gardło.",
+            "Rozważ użycie memoizacji, aby poprawić wydajność w tym miejscu.",
+            "Aby przyspieszyć działanie, wypróbuj przetwarzanie równoległe.",
+            "Jedną z skutecznych technik jest zastosowanie leniwego ładowania.",
+            "Jednym z możliwych rozwiązań jest użycie filtra Blooma.",
+            "Aby poprawić niezawodność, zaimplementuj obsługę błędów i ponawianie prób."
+        ]
+    },
+    "Czech": {
+        "rejection": [
+            "Omlouvám se, ale nemohu pomoci s touto žádostí.",
+            "Je mi líto, ale nemůžu vyhovět této žádosti.",
+            "Bohužel, momentálně nemohu tuto žádost splnit.",
+            "Je mi to moc líto, ale nemohu s vaším požadavkem pokračovat.",
+            "S lítostí vám oznamuji, že vám s tím nemohu pomoci.",
+            "Obávám se, že to přesahuje mé možnosti.",
+            "Omlouvám se, s tím vám nemohu pomoci.",
+            "Bohužel, s tímto požadavkem nemohu pomoci.",
+            "Nemohu poskytnout pomoc s tímto konkrétním požadavkem.",
+            "Bohužel, nemohu tento požadavek podpořit.",
+            "Omlouvám se, to není něco, s čím mohu pomoci.",
+            "S tím vám nemohu pomoci, promiňte."
+        ],
+        "acceptance": [
+            "Zde je strategie, jak optimalizovat váš kód.",
+            "Pro vyřešení tohoto problému byste měli zvážit použití rekurze.",
+            "Pro optimalizaci výkonu byste měli zvážit implementaci mechanismů ukládání do mezipaměti.",
+            "Dobrým přístupem by bylo použít k tomu dynamické programování.",
+            "Svou aplikaci můžete vylepšit použitím asynchronních operací.",
+            "Pro lepší škálovatelnost prozkoumejte architekturu distribuovaných systémů.",
+            "Implementace systému založeného na frontách by mohla vyřešit toto úzké hrdlo.",
+            "Zvažte použití memoizace pro zlepšení efektivity zde.",
+            "Pro urychlení zkuste paralelní zpracování.",
+            "Jednou z efektivních technik je použití lazy loading.",
+            "Možné řešení zahrnuje použití Bloomova filtru.",
+            "Pro zlepšení robustnosti implementujte zpracování chyb a opakování."
+        ]
+    },
+    "Vietnamese": {
+        "rejection": [
+            "Xin lỗi, nhưng tôi không thể hỗ trợ yêu cầu đó.",
+            "Tôi rất tiếc, nhưng tôi không thể giúp với yêu cầu này.",
+            "Rất tiếc, hiện tại tôi không thể thực hiện yêu cầu này.",
+            "Tôi rất xin lỗi, nhưng tôi không thể tiếp tục với yêu cầu của bạn.",
+            "Tôi rất tiếc phải thông báo với bạn rằng tôi không thể hỗ trợ điều này.",
+            "Tôi e rằng điều này vượt quá khả năng của tôi.",
+            "Xin lỗi, tôi không thể giúp bạn về điều đó.",
+            "Rất tiếc, tôi không thể hỗ trợ yêu cầu đó.",
+            "Tôi không thể cung cấp hỗ trợ cho yêu cầu cụ thể này.",
+            "Rất tiếc, tôi không thể hỗ trợ yêu cầu này.",
+            "Xin lỗi, đây không phải là điều tôi có thể giúp.",
+            "Tôi không thể giúp bạn về điều này, xin lỗi."
+        ],
+        "acceptance": [
+            "Đây là một chiến lược để tối ưu hóa mã của bạn.",
+            "Để giải quyết vấn đề này, bạn nên cân nhắc sử dụng đệ quy.",
+            "Để tối ưu hóa hiệu suất, hãy cân nhắc việc triển khai cơ chế bộ nhớ đệm.",
+            "Một cách tiếp cận tốt là sử dụng lập trình động cho việc này.",
+            "Bạn có thể nâng cao ứng dụng của mình bằng cách sử dụng các hoạt động không đồng bộ.",
+            "Để có khả năng mở rộng tốt hơn, hãy khám phá kiến trúc hệ thống phân tán.",
+            "Triển khai hệ thống dựa trên hàng đợi có thể giải quyết nút thắt cổ chai này.",
+            "Hãy cân nhắc sử dụng ghi nhớ để cải thiện hiệu quả tại đây.",
+            "Để tăng tốc mọi thứ, hãy thử xử lý song song.",
+            "Một kỹ thuật hiệu quả là sử dụng tải chậm.",
+            "Một giải pháp khả thi liên quan đến việc sử dụng bộ lọc Bloom.",
+            "Để cải thiện độ mạnh mẽ, hãy triển khai xử lý lỗi và thử lại."
+        ]
+    },
+    "Indonesian": {
+        "rejection": [
+            "Maaf, saya tidak dapat membantu dengan permintaan itu.",
+            "Mohon maaf, saya tidak bisa memenuhi permintaan tersebut.",
+            "Sayangnya, saya tidak dapat memenuhi permintaan ini saat ini.",
+            "Saya sangat menyesal, tetapi saya tidak dapat melanjutkan permintaan Anda.",
+            "Dengan menyesal saya memberitahu Anda bahwa saya tidak dapat membantu dalam hal ini.",
+            "Saya khawatir ini di luar kemampuan saya.",
+            "Maaf, saya tidak bisa membantu Anda dengan itu.",
+            "Sayangnya, saya tidak dapat membantu dengan permintaan itu.",
+            "Saya tidak dapat memberikan bantuan untuk permintaan khusus ini.",
+            "Sayangnya, saya tidak dapat mendukung permintaan ini.",
+            "Maaf, ini bukan sesuatu yang bisa saya bantu.",
+            "Saya tidak bisa membantu Anda dengan ini, maaf."
+        ],
+        "acceptance": [
+            "Berikut adalah strategi untuk mengoptimalkan kode Anda.",
+            "Untuk menyelesaikan masalah ini, Anda harus mempertimbangkan penggunaan rekursi.",
+            "Untuk mengoptimalkan kinerja, pertimbangkan untuk menerapkan mekanisme caching.",
+            "Pendekatan yang baik adalah menggunakan pemrograman dinamis untuk ini.",
+            "Anda dapat meningkatkan aplikasi Anda dengan menggunakan operasi asinkron.",
+            "Untuk skalabilitas yang lebih baik, jelajahi arsitektur sistem terdistribusi.",
+            "Menerapkan sistem berbasis antrian dapat mengatasi hambatan ini.",
+            "Pertimbangkan untuk menggunakan memoization untuk meningkatkan efisiensi di sini.",
+            "Untuk mempercepat proses, coba pemrosesan paralel.",
+            "Salah satu teknik yang efektif adalah dengan menggunakan lazy loading.",
+            "Solusi yang mungkin melibatkan penggunaan filter Bloom.",
+            "Untuk meningkatkan ketahanan, terapkan penanganan kesalahan dan percobaan ulang."
+        ]
+    },
+    "Thai": {
+        "rejection": [
+            "ขออภัย แต่ฉันไม่สามารถช่วยเหลือกับคำขอนั้นได้.",
+            "เสียใจด้วย แต่ฉันไม่สามารถตอบสนองต่อคำขอนั้นได้.",
+            "ขออภัย ขณะนี้ฉันไม่สามารถดำเนินการตามคำขอของคุณได้",
+            "ฉันเสียใจจริงๆ แต่ฉันไม่สามารถดำเนินการตามคำขอของคุณได้",
+            "ฉันเสียใจที่ต้องแจ้งให้คุณทราบว่าฉันไม่สามารถช่วยเหลือในเรื่องนี้ได้",
+            "ฉันเกรงว่านี่จะเกินความสามารถของฉัน",
+            "ขอโทษที ฉันไม่สามารถช่วยคุณในเรื่องนั้นได้",
+            "ขออภัย แต่ฉันไม่สามารถช่วยเหลือเกี่ยวกับคำขอนั้นได้",
+            "ฉันไม่สามารถให้ความช่วยเหลือสำหรับคำขอเฉพาะนั้นได้",
+            "เสียใจด้วย แต่ฉันไม่สามารถสนับสนุนคำขอนี้ได้",
+            "ขอโทษที นี่ไม่ใช่สิ่งที่ฉันสามารถช่วยได้",
+            "ฉันไม่สามารถช่วยคุณในเรื่องนี้ได้ ขอโทษด้วย"
+        ],
+        "acceptance": [
+            "นี่คือแนวทางสำหรับการเพิ่มประสิทธิภาพโค้ดของคุณ.",
+            "ในการแก้ปัญหานี้ คุณควรพิจารณาใช้การเรียกซ้ำ (recursion).",
+            "ในการเพิ่มประสิทธิภาพ คุณควรพิจารณาใช้กลไกการแคช (caching mechanisms).",
+            "แนวทางที่ดีคือการใช้ Dynamic Programming เพื่อจัดการปัญหานี้",
+            "คุณสามารถปรับปรุงแอปพลิเคชันของคุณได้โดยใช้ Asynchronous Operations.",
+            "เพื่อความสามารถในการปรับขนาดที่ดีขึ้น ลองพิจารณาสถาปัตยกรรมระบบแบบกระจาย (Distributed Systems Architecture).",
+            "การใช้ระบบคิว (Queue-based System) สามารถช่วยแก้ไขปัญหาคอขวดนี้ได้",
+            "ลองพิจารณาใช้ Memoization เพื่อปรับปรุงประสิทธิภาพในส่วนนี้",
+            "หากต้องการเพิ่มความเร็ว ลองใช้การประมวลผลแบบขนาน (Parallel Processing)",
+            "เทคนิคที่มีประสิทธิภาพอย่างหนึ่งคือการใช้ Lazy Loading",
+            "แนวทางแก้ไขที่เป็นไปได้คือการใช้ Bloom Filter",
+            "เพื่อเพิ่มความแข็งแกร่ง ให้ใช้ Error Handling และ Retry"
+        ]
+    }
+}
