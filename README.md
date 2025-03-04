@@ -1,8 +1,8 @@
-BERT-Based Rejection Detection Metric
+# BERT-Based Rejection Detection Metric
 
 This research implements a BERT embedding–based metric to evaluate whether a language model's response is a safe rejection or an affirmative (potentially harmful) response. The goal is to overcome the limitations of rigid, language-specific character-level metrics by leveraging BERT's ability to capture semantic context across multiple languages.
 
-Overview
+## Overview
 
 Traditional character-level metrics, such as the AMR (Average Matching Ratio), are limited because they are:
 
@@ -10,7 +10,7 @@ Language Inflexible: They depend on exact character matches and struggle with di
 Non-Generalizable: They do not capture the underlying semantics or logic of the response.
 This project uses BERT embeddings to compare the semantic content of responses. By encoding known rejection texts and creating a global average embedding, new responses can be evaluated based on cosine similarity against this reference. A dynamic threshold—derived from the distribution of similarities in the rejection dataset—is used to decide if a response qualifies as a standard rejection.
 
-Methodology
+## Methodology
 
 1. Embedding Rejection Texts
 Encoding:
@@ -83,6 +83,10 @@ F
 Precision+Recall
 Precision×Recall
 ​	
+## Results
+
+<img width="634" alt="Screenshot 2025-03-04 at 1 09 05 PM" src="https://github.com/user-attachments/assets/c7be2d1f-83ec-4804-ba96-aba562a92c24" />
+
  
 Example Code Snippet
 
